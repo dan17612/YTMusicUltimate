@@ -8,52 +8,54 @@
 </p>
 
 <p align="center">
-The best tweak for the YouTube Music on iOS.
+Der beste Tweak für YouTube Music auf iOS.
 </p>
 
-## Download Links
+> **Hinweis:** Dieses Repository ist ein Fork des originalen Projekts __[ginsudev/YTMusicUltimate](https://github.com/ginsudev/YTMusicUltimate)__ von Ginsu und Dayanch96.
+
+## Download-Links
 
 * **Jailbreak:**
-Add __[https://ginsu.dev/repo](https://ginsu.dev/repo)__ to your favorite installer and download latest version from there, or from __[Releases](https://github.com/ginsudev/YTMusicUltimate/releases)__ page.
+Füge __[https://ginsu.dev/repo](https://ginsu.dev/repo)__ zu deinem bevorzugten Installer hinzu und lade die neueste Version von dort herunter, oder von der __[Releases](https://github.com/dan17612/YTMusicUltimate/releases)__-Seite.
 
-(arm.deb version for Rootful and arm64.deb version for Rootless devices)
+(arm.deb für Rootful- und arm64.deb für Rootless-Geräte)
 
 * **Sideloading:**
-  We no longer provide a sideloading IPA but you can build one yourself, keep reading:
+  Wir stellen keine fertige Sideloading-IPA mehr bereit, du kannst sie aber selbst erstellen – lies weiter:
 
-## How to build a YTMusicUltimate IPA by yourself using Github actions
+## IPA mit GitHub Actions selbst erstellen
 
-If this is your first time here, start from step 1. If you built a YTMU IPA before, skip steps 1 and 2. Instead, click on the "Sync fork" button to get the latest version of the tweak and continue through step 3.
+Falls du das hier zum ersten Mal machst, beginne bei Schritt 1. Falls du schon einmal eine YTMU-IPA erstellt hast, überspringe Schritte 1 und 2, klicke stattdessen auf den „Sync fork"-Button, um die neueste Version des Tweaks zu erhalten, und fahre mit Schritt 3 fort.
 
-1. Fork this repository using the fork button on the top right.
-2. On your forked repository, go to Repository Settings > Actions, enable Read and Write permissions.
-3. Go to the Actions tab on your forked repo, click on "Build and Release YTMusicUltimate" located on the left side. Click "Run workflow" button located on the right side.
-4. Find a decrypted YTMusic .ipa file (we cannot provide you this due to legal reasons) and upload it to a file provider(filebin.net or Dropbox is recommended). Paste the url to the necessary field and click "Run workflow".
-5. Wait for the build to finish. You can download the tweaked IPA from the releases section of your forked repo. (If you can't find the releases section, go to your forked repo and add /releases to the url. i.e github.com/user/YTMusicUltimate/releases)
+1. Forke dieses Repository über den Fork-Button oben rechts.
+2. Gehe in deinem geforkten Repository zu Repository-Einstellungen > Actions und aktiviere Lese- und Schreibberechtigungen.
+3. Gehe im geforkten Repo auf den Tab „Actions", klicke links auf „Build and Release YTMusicUltimate" und dann rechts auf den Button „Run workflow".
+4. Besorge dir eine entschlüsselte YTMusic-.ipa-Datei (wir können diese aus rechtlichen Gründen nicht bereitstellen) und lade sie auf einen Dateihost hoch (filebin.net oder Dropbox werden empfohlen). Füge die URL in das entsprechende Feld ein und klicke auf „Run workflow".
+5. Warte, bis der Build abgeschlossen ist. Die fertige IPA kannst du im Releases-Bereich deines geforkten Repos herunterladen. (Falls du den Releases-Bereich nicht findest, rufe dein geforktes Repo auf und füge /releases zur URL hinzu, z. B. github.com/benutzername/YTMusicUltimate/releases.)
 
-## IPA building troubleshooting(I can't build the IPA/Github action fails/I can't find the releases section etc.)
+## Fehlerbehebung beim IPA-Build (IPA lässt sich nicht erstellen / GitHub Action schlägt fehl / Releases-Bereich nicht auffindbar usw.)
 
-99.9% of the time, the culprit is the IPA URL you provided. You HAVE TO provide a decryped IPA. It cannot be any other extension, it has to be a **.ipa** file. Find a decrypted YTMusic IPA(we can't help you with that), upload it to filebin.net or Dropbox, give the direct link to the GitHub action. If you find a working ipa and upload it properly, everything will start working perfectly, pinky promise.
+In 99,9 % der Fälle liegt das Problem an der angegebenen IPA-URL. Du MUSST eine entschlüsselte IPA angeben. Es darf keine andere Dateiendung sein – es muss eine **.ipa**-Datei sein. Besorge dir eine entschlüsselte YTMusic-IPA (dabei können wir dir nicht helfen), lade sie auf filebin.net oder Dropbox hoch und gib den direkten Link in die GitHub Action ein. Wenn du eine funktionierende IPA findest und sie korrekt hochlädst, wird alles einwandfrei funktionieren, versprochen.
 
-If the github action works and you cannot find where you can download the result, you need to add /releases to the url of your forked repository. It'll probably look like this: https://github.com/YOURUSERNAME/YTMusicUltimate/releases, don't forget to replace the YOURUSERNAME part with your username. It may seem invisible but if the github action is successful, IPA will be there.
+Falls die GitHub Action erfolgreich war und du das Ergebnis nicht findest, musst du /releases zur URL deines geforkten Repositories hinzufügen. Es sieht dann ungefähr so aus: https://github.com/DEINBENUTZERNAME/YTMusicUltimate/releases – vergiss nicht, DEINBENUTZERNAME durch deinen tatsächlichen Benutzernamen zu ersetzen. Es mag unsichtbar wirken, aber wenn die GitHub Action erfolgreich war, ist die IPA dort zu finden.
 
 
-## How to build the package by yourself on your device
-1. Install __[Theos](https://theos.dev/docs/installation)__
-2. Clone this repo __[using git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)__
-3. Cd your YTMusicUltimate folder and run:
+## Paket selbst auf deinem Gerät erstellen
+1. Installiere __[Theos](https://theos.dev/docs/installation)__
+2. Klone dieses Repo __[mit git](https://docs.github.com/en/repositories/creating-and-managing-repositories/cloning-a-repository)__
+3. Wechsle in deinen YTMusicUltimate-Ordner und führe aus:
 
-   • '**make clean package**' to build deb for rootful device
+   • '**make clean package**' – erstellt ein Deb für Rootful-Geräte
    
-   • '**make clean package ROOTLESS=1**' to build deb for rootless device
+   • '**make clean package ROOTLESS=1**' – erstellt ein Deb für Rootless-Geräte
    
-   • '**make clean package SIDELOADING=1**' to build deb for injecting in to ipa
+   • '**make clean package SIDELOADING=1**' – erstellt ein Deb zum Injizieren in eine IPA
    
    
 
-   • To learn how to inject tweaks in to ipa visit __[here (Azule)](https://github.com/Al4ise/Azule)__
+   • Wie man Tweaks in eine IPA injiziert, erfährst du __[hier (Azule)](https://github.com/Al4ise/Azule)__
 
 
 
 
-Made with ❤ by Ginsu and Dayanch96
+Erstellt mit ❤ von Ginsu und Dayanch96
