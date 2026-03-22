@@ -21,7 +21,8 @@ Füge __[https://ginsu.dev/repo](https://ginsu.dev/repo)__ zu deinem bevorzugten
 (arm.deb für Rootful- und arm64.deb für Rootless-Geräte)
 
 * **Sideloading:**
-  Wir stellen keine fertige Sideloading-IPA mehr bereit, du kannst sie aber selbst erstellen – lies weiter:
+  Die aktuell verfügbaren IPA-Dateien könnt ihr hier herunterladen __[https://github.com/dan17612/YTMusicUltimate/releases](https://github.com/dan17612/YTMusicUltimate/releases)__
+  Anschließend könnt ihr sie z. B. mit Sideloadly oder AltStore sideloaden.
 
 ## IPA mit GitHub Actions selbst erstellen
 
