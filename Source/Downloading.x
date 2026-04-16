@@ -26,6 +26,8 @@ static BOOL YTMU(NSString *key) {
 - (void)downloadAudio:(YTPlayerViewController *)playerResponse;
 - (void)downloadCoverImage:(YTPlayerViewController *)playerResponse;
 - (NSString *)getURLFromManifest:(NSURL *)manifest;
+- (YTPlayerViewController *)ytmuPlayerViewControllerFromView:(UIView *)sourceView;
+- (UIViewController *)ytmuTopViewControllerFrom:(UIViewController *)controller;
 @end
 
 %hook ELMTouchCommandPropertiesHandler
@@ -47,16 +49,11 @@ static BOOL YTMU(NSString *key) {
         return %orig;
     }
 
-    if (![tapRecognizer.view._viewControllerForAncestor isKindOfClass:%c(YTMNowPlayingViewController)]) {
-        return %orig;
-    }
-
-    YTMNowPlayingViewController *playingVC = (YTMNowPlayingViewController *)tapRecognizer.view._viewControllerForAncestor;
-    YTMWatchViewController *watchVC = (YTMWatchViewController *)playingVC.parentViewController;
-    YTPlayerViewController *playerVC = watchVC.playerViewController;
+    UIViewController *sourceViewController = tapRecognizer.view._viewControllerForAncestor;
+    YTPlayerViewController *playerVC = [self ytmuPlayerViewControllerFromView:tapRecognizer.view];
     YTPlayerResponse *playerResponse = playerVC.playerResponse;
 
-    if (playerResponse) {
+    if (playerVC && playerResponse) {
         YTMActionSheetController *sheetController = [%c(YTMActionSheetController) musicActionSheetController];
         sheetController.sourceView = tapRecognizer.view;
         [sheetController addHeaderWithTitle:LOC(@"SELECT_ACTION") subtitle:nil];
@@ -73,8 +70,14 @@ static BOOL YTMU(NSString *key) {
             return %orig;
         }]];
 
+        UIViewController *presentingVC = [self ytmuTopViewControllerFrom:sourceViewController];
+
         if (YTMU(@"downloadAudio") && YTMU(@"downloadCoverImage")) {
-            [sheetController presentFromViewController:playingVC animated:YES completion:nil];
+            if (presentingVC) {
+                [sheetController presentFromViewController:presentingVC animated:YES completion:nil];
+            } else {
+                return %orig;
+            }
         } else if (YTMU(@"downloadAudio")) {
             [self downloadAudio:playerVC];
         } else if (YTMU(@"downloadCoverImage")) {
@@ -86,6 +89,42 @@ static BOOL YTMU(NSString *key) {
         alertView.subtitle = LOC(@"DONT_RUSH_DESC");
         [alertView show];
     }
+}
+
+%new
+- (YTPlayerViewController *)ytmuPlayerViewControllerFromView:(UIView *)sourceView {
+    UIViewController *controller = sourceView._viewControllerForAncestor;
+    while (controller) {
+        if ([controller isKindOfClass:%c(YTMNowPlayingViewController)]) {
+            YTMNowPlayingViewController *nowPlayingVC = (YTMNowPlayingViewController *)controller;
+            if ([nowPlayingVC.parentViewController isKindOfClass:%c(YTMWatchViewController)]) {
+                YTMWatchViewController *watchVC = (YTMWatchViewController *)nowPlayingVC.parentViewController;
+                if (watchVC.playerViewController) {
+                    return watchVC.playerViewController;
+                }
+            }
+        }
+
+        if ([controller isKindOfClass:%c(YTMWatchViewController)]) {
+            YTMWatchViewController *watchVC = (YTMWatchViewController *)controller;
+            if (watchVC.playerViewController) {
+                return watchVC.playerViewController;
+            }
+        }
+
+        controller = controller.parentViewController;
+    }
+
+    return nil;
+}
+
+%new
+- (UIViewController *)ytmuTopViewControllerFrom:(UIViewController *)controller {
+    UIViewController *topController = controller;
+    while (topController.presentedViewController) {
+        topController = topController.presentedViewController;
+    }
+    return topController;
 }
 
 %new
