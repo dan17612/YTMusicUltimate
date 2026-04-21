@@ -67,7 +67,6 @@
                     self.hud.customView = checkmarkImageView;
 
                     [self.hud hideAnimated:YES afterDelay:3.0];
-                    [UIPasteboard generalPasteboard].string = [NSString stringWithFormat:@"Command execution failed with rc=%d and output=%@.\n", returnCode, [MobileFFmpegConfig getLastCommandOutput]];
                 }
 
                 [[NSFileManager defaultManager] removeItemAtURL:destinationURL error:nil];
